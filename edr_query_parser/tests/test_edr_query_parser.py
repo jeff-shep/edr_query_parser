@@ -378,49 +378,6 @@ def test_datetime_interval_to(url, expected):
     except ValueError as raisedException:
         assert str(raisedException) == expected
 
-
-@pytest.mark.parametrize("url, expected", [
-    ('https://somewhere.com/collections/my_collection/position?bbox=1,10,20,30', [1, 10, 20, 30]),
-    (
-    'https://somewhere.com/collections/my_collection/position?bbox=1,10,20,a', 'could not convert parameter to a list'),
-])
-def test_bbox(url, expected):
-    edr = EDRQueryParser(url)
-
-    try:
-        assert edr.bbox.list == expected
-    except ValueError as raisedException:
-        assert str(raisedException) == expected
-
-
-@pytest.mark.parametrize("url, expected", [
-    ('https://somewhere.com/collections/my_collection/position?within=20&within-units=km', 20),
-    (
-            'https://somewhere.com/collections/my_collection/position?within=30&within-units=km', 30),
-])
-def test_within(url, expected):
-    edr = EDRQueryParser(url)
-
-    try:
-        assert edr.within.value == expected
-    except ValueError as raisedException:
-        assert str(raisedException) == expected
-
-
-@pytest.mark.parametrize("url, expected", [
-    ('https://somewhere.com/collections/my_collection/position?within=20&within-units=km', "km"),
-    (
-            'https://somewhere.com/collections/my_collection/position?within=30&within-units=miles', "miles"),
-])
-def test_within(url, expected):
-    edr = EDRQueryParser(url)
-
-    try:
-        assert edr.within_units.value == expected
-    except ValueError as raisedException:
-        assert str(raisedException) == expected
-
-
 @pytest.mark.parametrize("url, expected", [
     ('https://somewhere.com/collections/my_collection/position?datetime=..2018-02-12T23%3A20%3A52Z',
      True),
@@ -487,3 +444,46 @@ def test_datetime_greater_than(url, expected):
         assert edr.datetime.less_than == expected
     except ValueError as raisedException:
         assert str(raisedException) == expected
+
+
+@pytest.mark.parametrize("url, expected", [
+    ('https://somewhere.com/collections/my_collection/position?bbox=1,10,20,30', [1, 10, 20, 30]),
+    (
+    'https://somewhere.com/collections/my_collection/position?bbox=1,10,20,a', 'could not convert parameter to a list'),
+])
+def test_bbox(url, expected):
+    edr = EDRQueryParser(url)
+
+    try:
+        assert edr.bbox.list == expected
+    except ValueError as raisedException:
+        assert str(raisedException) == expected
+
+
+@pytest.mark.parametrize("url, expected", [
+    ('https://somewhere.com/collections/my_collection/position?within=20&within-units=km', 20),
+    (
+            'https://somewhere.com/collections/my_collection/position?within=30&within-units=km', 30),
+])
+def test_within(url, expected):
+    edr = EDRQueryParser(url)
+
+    try:
+        assert edr.within.value == expected
+    except ValueError as raisedException:
+        assert str(raisedException) == expected
+
+
+@pytest.mark.parametrize("url, expected", [
+    ('https://somewhere.com/collections/my_collection/position?within=20&within-units=km', "km"),
+    (
+            'https://somewhere.com/collections/my_collection/position?within=30&within-units=miles', "miles"),
+])
+def test_within(url, expected):
+    edr = EDRQueryParser(url)
+
+    try:
+        assert edr.within_units.value == expected
+    except ValueError as raisedException:
+        assert str(raisedException) == expected
+

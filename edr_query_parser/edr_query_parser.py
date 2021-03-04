@@ -92,6 +92,34 @@ class EDRQueryParser:
     def within_units(self):
         return Parameter(self.query_parts.get('within-units'))
 
+    @property
+    def max_z(self):
+        return Parameter(self.query_parts.get('max-z'))
+
+    @property
+    def min_z(self):
+        return Parameter(self.query_parts.get('min-z'))
+
+    @property
+    def resolution_x(self):
+        return Parameter(self.query_parts.get('resolution-x'))
+
+    @property
+    def resolution_y(self):
+        return Parameter(self.query_parts.get('resolution-y'))
+
+    @property
+    def resolution_z(self):
+        return Parameter(self.query_parts.get('resolution-z'))
+
+    @property
+    def corridor_height(self):
+        return Parameter(self.query_parts.get('corridor-height'))
+
+    @property
+    def corridor_width(self):
+        return Parameter(self.query_parts.get('corridor-width'))
+
 
 class Parameter:
     def __init__(self, value):
